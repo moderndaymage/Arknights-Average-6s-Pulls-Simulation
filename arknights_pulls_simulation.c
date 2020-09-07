@@ -3,7 +3,7 @@
 #include <time.h>
 
 static int TrialRunPulls[100001];
-int menu(void), pullSimulator(int baseRateUp);
+int menu(void), pullSimulator(int baseRateUp), findMedian(void), quickSort(int low, int high), partition(int low, int high), swap(int* a, int* b);
 
 int main(void)
 {
@@ -11,6 +11,7 @@ int main(void)
 	baseRateUp = menu();	//	Enter main menu
 	srand(time(0));
 	pullSimulator(baseRateUp);	// Simulate pulls
+	findMedian();
 	//	Sort TrialRunPulls array and find the median
 	return 0;
 }
@@ -72,5 +73,50 @@ int pullSimulator(int baseRateUp)
 		printf("Trial #%d, Number of pulls: %d\n", count + 1, pullCounter);
 		isPullSuccess = 0;	//	Reset this variable for the next do while loop run
 	}
+	return 0;
+}
+
+int findMedian(void)
+{
+	//	do quick sort
+	int n = sizeof(TrialRunPulls) / sizeof(TrialRunPulls[0]);
+	quickSort(TrialRunPulls, 0, n - 1);
+	printf("\nMedian: %d\n", TrialRunPulls[50000]);
+	return 0;
+}
+
+void quickSort(int low, int high)	//	The main function that implements QuickSort, low is starting index, high is ending index
+{
+	if (low < high)
+	{
+		int pi = partition(low, high); //	pi is partitioning index, arr[p] is now at right place
+		quickSort(low, pi - 1);	// Separately sort elements before partition and after partition 
+		quickSort(pi + 1, high);
+	}
+}
+
+/*	This function takes last element as pivot, places the pivot element at its correct position in sorted array, 
+	and places all smaller (smaller than pivot) to left of pivot and all greater elements to right of pivot	*/
+int partition(int low, int high)
+{
+	int pivot = TrialRunPulls[high];    // pivot 
+	int i = (low - 1);  // Index of smaller element 
+	for (int j = low; j <= high - 1; j++)
+	{
+		if (TrialRunPulls[j] < pivot)	// If current element is smaller than the pivot 
+		{
+			i++;    // increment index of smaller element 
+			swap(&TrialRunPulls[i], &TrialRunPulls[j]);
+		}
+	}
+	swap(&TrialRunPulls[i + 1], &TrialRunPulls[high]);
+	return (i + 1);
+}
+
+int swap(int* a, int* b)	// A utility function to swap two elements 
+{
+	int t = *a;
+	*a = *b;
+	*b = t;
 	return 0;
 }
