@@ -3,8 +3,7 @@
 #include <time.h>
 
 static int TrialRunPulls[100001];
-int menu(void);
-int pullSimulator(int baseRateUp);
+int menu(void), pullSimulator(int baseRateUp);
 
 int main(void)
 {
