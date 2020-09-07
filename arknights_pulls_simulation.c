@@ -9,7 +9,7 @@ int main(void)
 {
 	int baseRateUp = 0;
 	baseRateUp = menu();	//	Enter main menu
-	srand(time(0));
+	srand(time(0));	//	RNG seeding
 	pullSimulator(baseRateUp);	// Simulate pulls
 	findMedian();	//	Sort TrialRunPulls array and find the median
 	return 0;
