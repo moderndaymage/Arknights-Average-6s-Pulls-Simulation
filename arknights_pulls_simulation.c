@@ -71,6 +71,7 @@ int pullSimulator(int baseRateUp)
 		TrialRunPulls[count] = pullCounter;
 		printf("Trial #%d, Number of pulls: %d\n", count + 1, pullCounter);
 		isPullSuccess = 0;	//	Reset this variable for the next do while loop run
+		pullCounter = 0;
 	}
 	return 0;
 }
