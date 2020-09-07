@@ -11,8 +11,7 @@ int main(void)
 	baseRateUp = menu();	//	Enter main menu
 	srand(time(0));
 	pullSimulator(baseRateUp);	// Simulate pulls
-	findMedian();
-	//	Sort TrialRunPulls array and find the median
+	findMedian();	//	Sort TrialRunPulls array and find the median
 	return 0;
 }
 
@@ -53,7 +52,7 @@ int menu(void)
 int pullSimulator(int baseRateUp)
 {
 	int pullCounter = 0, pityCounter = 0, singlePullRNG = 0, isPullSuccess = 0;
-	for (int count = 0; count < 100001; count++;)	//	100001 trials starts here
+	for (int count = 0; count < 100001; count++)	//	100001 trials starts here
 	{
 		do
 		{	//	Pulls until you pulled the 6* operator you want per trial
@@ -78,14 +77,14 @@ int pullSimulator(int baseRateUp)
 
 int findMedian(void)
 {
-	//	do quick sort
+	//	do quicksort
 	int n = sizeof(TrialRunPulls) / sizeof(TrialRunPulls[0]);
-	quickSort(TrialRunPulls, 0, n - 1);
+	quickSort(0, n - 1);
 	printf("\nMedian: %d\n", TrialRunPulls[50000]);
 	return 0;
 }
 
-void quickSort(int low, int high)	//	The main function that implements QuickSort, low is starting index, high is ending index
+int quickSort(int low, int high)	//	The main function that implements QuickSort, low is starting index, high is ending index
 {
 	if (low < high)
 	{
@@ -93,6 +92,7 @@ void quickSort(int low, int high)	//	The main function that implements QuickSort
 		quickSort(low, pi - 1);	// Separately sort elements before partition and after partition 
 		quickSort(pi + 1, high);
 	}
+	return 0;
 }
 
 /*	This function takes last element as pivot, places the pivot element at its correct position in sorted array, 
