@@ -102,6 +102,7 @@ int oddsPerPull(void)
 		oddsOnNthPull = ((oddsMatch / 100001) * 100);
 		printf("On %d pulls: ~%.2f%%\n", pullMultiples, oddsOnNthPull);
 	}
+	return 0;
 }
 
 int quickSort(int low, int high)	//	The main function that implements QuickSort, low is starting index, high is ending index
