@@ -3,7 +3,7 @@
 #include <time.h>
 
 static int TrialRunPulls[100001];
-int menu(void), pullSimulator(int baseRateUp), findMedian(void), quickSort(int low, int high), partition(int low, int high), swap(int* a, int* b);
+int menu(void), pullSimulator(int baseRateUp), findMedian(void), quickSort(int low, int high), partition(int low, int high), swap(int* a, int* b), oddsPerPull(void);
 
 int main(void)
 {
@@ -12,6 +12,7 @@ int main(void)
 	srand(time(0));	//	RNG seeding
 	pullSimulator(baseRateUp);	// Simulate pulls
 	findMedian();	//	Sort TrialRunPulls array and find the median
+	oddsPerPull();	//	Find odds per N pull
 	return 0;
 }
 
@@ -83,6 +84,24 @@ int findMedian(void)
 	quickSort(0, n - 1);
 	printf("\nMedian: %d\n", TrialRunPulls[50000]);
 	return 0;
+}
+
+int oddsPerPull(void)
+{
+	int pullMultiples = 0;
+	float oddsOnNthPull = 0;
+	printf("\nOdds of pulling a 6* operator you wanted on N pulls is:\n");
+	for (int pullMultiples = 10; pullMultiples < 301; pullMultiples = pullMultiples + 10)
+	{
+		float oddsMatch = 0;
+		for (int count = 0; count < 100001; count++)
+		{
+			if (TrialRunPulls[count] <= pullMultiples)
+				oddsMatch++;
+		}
+		oddsOnNthPull = ((oddsMatch / 100001) * 100);
+		printf("On %d pulls: ~%.2f%%\n", pullMultiples, oddsOnNthPull);
+	}
 }
 
 int quickSort(int low, int high)	//	The main function that implements QuickSort, low is starting index, high is ending index
