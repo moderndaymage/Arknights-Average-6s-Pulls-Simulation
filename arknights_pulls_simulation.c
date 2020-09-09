@@ -91,26 +91,17 @@ int oddsPerPull(void)
 	int pullMultiples = 0;
 	float oddsOnNthPull = 0;
 	printf("\nOdds of pulling a 6* operator you wanted on N pulls is:\n");
-	for (int pullMultiples = 10; pullMultiples < 91; pullMultiples = pullMultiples + 10)
+	for (int pullMultiples = 10; pullMultiples < 301; pullMultiples = pullMultiples + 10)
 	{
 		float oddsMatch = 0;
 		for (int count = 0; count < 100001; count++)
 		{
-			if (TrialRunPulls[count] == pullMultiples)
+			if (TrialRunPulls[count] <= pullMultiples)
 				oddsMatch++;
 		}
 		oddsOnNthPull = ((oddsMatch / 100001) * 100);
 		printf("On %d pulls: ~%.2f%%\n", pullMultiples, oddsOnNthPull);
 	}
-	float oddsMatch = 0;
-	for (int count = 0; count < 100001; count++)
-	{
-		if (TrialRunPulls[count] >= 99)
-			oddsMatch++;
-	}
-	oddsOnNthPull = ((oddsMatch / 100001) * 100);
-	printf("On 99+ pulls: ~%.2f%%\n", oddsMatch);
-	return 0;
 }
 
 int quickSort(int low, int high)	//	The main function that implements QuickSort, low is starting index, high is ending index
