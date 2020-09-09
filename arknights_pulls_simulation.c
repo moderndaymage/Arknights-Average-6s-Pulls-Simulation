@@ -88,7 +88,6 @@ int findMedian(void)
 
 int oddsPerPull(void)
 {
-	int pullMultiples = 0;
 	float oddsOnNthPull = 0;
 	printf("\nOdds of pulling a 6* operator you wanted on N pulls is:\n");
 	for (int pullMultiples = 10; pullMultiples < 301; pullMultiples = pullMultiples + 10)
