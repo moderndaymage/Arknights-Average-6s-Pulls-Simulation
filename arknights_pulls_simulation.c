@@ -52,27 +52,30 @@ int menu(void)
 
 int pullSimulator(int baseRateUp)
 {
-	int pullCounter = 0, pityCounter = 0, singlePullRNG = 0, isPullSuccess = 0;
+	int totalPulls = 0, pityCounter = 0, singlePullRNG = 0, pityRate = 0, isPullSuccess = 0;
 	for (int count = 0; count < 100001; count++)	//	100001 trials starts here
 	{
 		do
 		{	//	Pulls until you pulled the 6* operator you want per trial
-			pullCounter++;	//	Do a single pull
-			if (pullCounter > 50)	//	Checks for pity first before rolling on RNG
-				pityCounter++;
+			totalPulls++;	//	Do a single pull
+			if (pityCounter > 50)	//	Checks for pity first before rolling on RNG
+				pityRate++;
 			singlePullRNG = (rand() % 100 + 1);	//	Simulate a single pull, RNG range is from 1 to 100
-			if (singlePullRNG <= (2 + (pityCounter * 2)))	//	Checks if you pulled a 6* operator
+			if (singlePullRNG <= (2 + (pityRate * 2)))	//	Checks if you pulled a 6* operator
 			{
 				singlePullRNG = (rand() % 100 + 1);	//	Rolls to see which 6* you pulled
 				if (singlePullRNG <= baseRateUp)	//	Checks if you pulled the 6* operator you want
 					isPullSuccess = 1;	//	returns 1 if pull is a success
-				pityCounter = 0;	//	Resets the pity counter once you pulled any 6* operator
+				pityCounter = 0;	//	Resets the pity counter and rate once you pulled any 6* operator
+				pityRate = 0;
 			}
+			else
+				pityCounter++;	//	If you didn't pull any 6*, pity counter increases until you get any 6*
 		} while (isPullSuccess == 0);
-		TrialRunPulls[count] = pullCounter;
-		printf("Trial #%d, Number of pulls: %d\n", count + 1, pullCounter);
+		TrialRunPulls[count] = totalPulls;
+		printf("Trial #%d, Number of pulls: %d\n", count + 1, totalPulls);
 		isPullSuccess = 0;	//	Reset this variable for the next do while loop run
-		pullCounter = 0;
+		totalPulls = 0;
 	}
 	return 0;
 }
